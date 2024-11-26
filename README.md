@@ -1,6 +1,51 @@
-# Medical Data Analysis with Graph Neural Networks
+# Harnessing EHR Data: A Graph-Based Model for Predicting Patient Criticalness with Graph Neural Networks
 
-This project involves analyzing medical data using Graph Neural Networks (GCNs) with the MIMIC-III dataset. The data is fetched from Google BigQuery, preprocessed, and then used to construct a graph. A GCN model is trained and evaluated on this graph data to predict patient outcomes.
+## Project Overview
+  This project aims to utilize Electronic Health Records (EHR) and Graph Neural Networks (GNNs) to predict patient criticalness, with a specific focus on mortality prediction. By representing patient data as graphs, this approach uncovers the complex relationships between clinical, demographic, and ICU data, improving prediction accuracy over traditional machine learning models. The project integrates patient similarity models with GNNs to forecast critical outcomes such as patient deterioration or death.
+
+## Problem Statement
+  Early detection of patient criticalness is critical for improving healthcare outcomes. With increasing ICU admissions and complex medical histories, predicting patient mortality and critical conditions is essential. Current traditional models fail to fully utilize the interdependencies between different data points in Electronic Health Records (EHR), leading to suboptimal predictions. This project aims to fill this gap by using Graph Neural Networks to model and predict patient outcomes based on integrated EHR data.
+
+## Objectives
+- Prediction of Patient Mortality and Criticality: Develop a model to predict whether a patient is at risk of critical outcomes using GNNs.
+- Graph Representation of Patient Data: Transform patient data from multiple sources (e.g., diagnoses, lab results, prescriptions) into graph structures for enhanced prediction capabilities.
+- Improved Accuracy: Leverage GNNs to better understand complex relationships between clinical variables, improving model accuracy in predicting mortality.
+
+## Key Features
+1. Graph-Based Approach: Converts EHR data into graph structures, with nodes representing patients and edges representing relationships based on clinical similarities.
+2. Patient Similarity Modeling: Establishes patient similarity based on clinical history, lab results, diagnoses, prescriptions, and ICU stays.
+3. Graph Neural Network (GNN): Uses PyTorch Geometric and Graph Convolutional Networks (GCNs) to train and predict patient outcomes from graph-structured data.
+4. Binary Classification for Mortality Prediction: Predicts mortality risk based on a binary classification approach, with binary cross-entropy loss as the objective function.
+
+## Data Sources
+- MIMIC-III Database: A critical care database containing de-identified health data for over 40,000 patients, including clinical variables like vital signs, lab results, prescriptions, and diagnoses.
+- PhysioNet: A collection of freely available data, including clinical and ICU data from various sources (for additional model training and validation).
+
+
+## Research Methodology
+```
+1. Data Preprocessing
+  - Data Cleaning: Handle missing values, outliers, and normalize features.
+  - Feature Engineering: Extract key features from various EHR tables such as:
+  - Patient Demographics: Age, gender, ethnicity.
+  - Clinical Data: Lab results, medical history (binary vectors for diagnoses).
+  - ICU Data: Length of stay, treatment procedures.
+  - Prescription Data: Medications and dosages.
+
+2. Graph Construction
+  - Nodes: Each patient is represented as a node, with features that describe the patient’s clinical, demographic, and treatment data.
+  - Edges: Relationships between patients are defined based on shared diagnoses, co-occurrence in ICU stays, or similarity in treatment.
+  - Graph Representation: The data is represented as a heterogeneous graph, where patient features and relationships are captured to facilitate predictive analysis.
+
+3. Model Architecture
+  - Graph Neural Networks (GNNs): The model architecture uses Graph Convolutional Networks (GCNs), a specific type of GNN, to process the graph structure.
+  - Model Training: The network learns from the graph structure and predicts the likelihood of mortality using binary classification.
+  - Loss Function: The model uses binary cross-entropy loss to train the network, optimizing the prediction of patient mortality.
+
+4. Evaluation
+  - Metrics: The model is evaluated using standard performance metrics such as accuracy, precision, recall, and F1-score to assess its effectiveness in predicting patient mortality.
+  - Comparison with Traditional Models: The performance of the GNN-based model is compared with traditional machine learning methods such as logistic regression and random forests to validate the improvements brought by the graph-based approach.
+```
 
 ## Project Structure
 
@@ -54,6 +99,9 @@ Upload the `lib` folder containing `utils.py` to your Google Drive.
 
 ## Project Details
 
+[![Patient Similarity Model Flowchart](sandbox:/mnt/data/graph_neural_network.jpg)](https://lucid.app/documents/embedded/4f20d1f6-9123-4e9d-8265-d1e509370987)
+
+
 ### `lib/utils.py`
 
 This script contains the following functions:
@@ -81,16 +129,23 @@ This notebook guides you through:
 - Defining, training, and evaluating the GCN model.
 - Plotting the confusion matrix to visualize model performance.
 
+## Acknowledgements
+
+- MIMIC-III Database: The dataset is provided by PhysioNet, a resource for large, openly accessible clinical datasets.
+- PyTorch Geometric: The graph neural network library used for building and training the GNN model.
+- Google BigQuery and Google Colab.
+
+## References
+
+1. GraphEHR: Heterogeneous Graph Neural Network for Electronic Health Records - [Liu, Z., Li, X., Peng, H., He, L., & Yu, P. S. (2021). Heterogeneous Similarity Graph Neural Network on Electronic Health Records. ArXiv.](https://arxiv.org/abs/2101.06800).
+2. MIMIC-III Database - [Johnson, A., Pollard, T., & Mark, R. (2016). MIMIC-III Clinical Database (version 1.4). PhysioNet.](https://doi.org/10.13026/C2XW26.)
+3. Graph Neural Networks: A Survey by Zhou et al. (2018) - [Zhou, J., Cui, G., Hu, S., Zhang, Z., Yang, C., Liu, Z., Wang, L., Li, C., & Sun, M. (2018). Graph Neural Networks: A Review of Methods and Applications. ArXiv. ](https://arxiv.org/abs/1812.08434).
+Lucidchart Model Link: Graph-Based Patient Similarity Model
+
 ## License
 
 This project is licensed under the GNU Affero General Public License V3. See the [LICENSE](LICENSE) file for details.
 
-## Acknowledgements
-
-- The MIMIC-III dataset.
-- PyTorch and PyTorch Geometric libraries.
-- Google BigQuery and Google Colab.
-
 ## Author
 
-[Your Name](https://github.com/mukesh16)
+[Mukesh Kumar Sahu](https://github.com/mukesh16)
